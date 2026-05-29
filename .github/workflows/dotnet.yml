@@ -1,13 +1,20 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: .NET Build and Test
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+concurrency:
+  group: dotnet-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -26,3 +33,18 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2.23.0
+      if: always()
+      with:
+        files: TestResults/**/*.trx
+        check_name: Test results
+        fail_on: test failures
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v5.4.3
+      if: always()
+      with:
+        files: TestResults/**/coverage.cobertura.xml
+        fail_ci_if_error: false
