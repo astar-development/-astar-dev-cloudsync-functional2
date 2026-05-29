@@ -34,28 +34,6 @@ jobs:
 
     - name: Build
       run: dotnet build --no-restore
-
-    - name: Install dotnet-coverage
-      run: dotnet tool install -g dotnet-coverage
-
-    - name: Run tests with coverage (MTP v2 compatible)
-      run: |
-        mkdir -p coverage
-        dotnet-coverage collect \
-          -o coverage/coverage.cobertura.xml \
-          -f cobertura \
-          "dotnet test --no-build --configuration Release"
-
-    - name: Publish test results
-      uses: EnricoMi/publish-unit-test-result-action@v2.23.0
-      if: always()
-      with:
-        files: TestResults/**/*.trx
-        check_name: Test results
-        fail_on: test failures
-
-    - name: Upload coverage to GitHub
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage
-        path: coverage/coverage.cobertura.xml
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
