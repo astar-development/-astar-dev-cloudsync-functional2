@@ -34,21 +34,6 @@ jobs:
 
     - name: Build
       run: dotnet build --no-restore
-     
-  build-test-coverage:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 10.0.x
-
-    - name: Restore
-      run: dotnet restore
 
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
@@ -74,9 +59,3 @@ jobs:
       with:
         name: coverage
         path: coverage/coverage.cobertura.xml
-
-    - name: Publish coverage to GitHub Code Coverage
-      uses: actions/upload-code-coverage@v3
-      with:
-        path: coverage/coverage.cobertura.xml
-        format: cobertura
