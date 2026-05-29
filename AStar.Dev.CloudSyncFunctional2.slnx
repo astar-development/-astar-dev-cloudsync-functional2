@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AStar.Dev.CloudSyncFunctional/AStar.Dev.CloudSyncFunctional.csproj" />
+    <Project Path="src/AStar.Dev.FunctionalParadigm/AStar.Dev.FunctionalParadigm.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/AStar.Dev.CloudSyncFunctional.Tests.Integration/AStar.Dev.CloudSyncFunctional.Tests.Integration.csproj" />
+    <Project Path="test/AStar.Dev.CloudSyncFunctional.Tests.Unit/AStar.Dev.CloudSyncFunctional.Tests.Unit.csproj" />
+    <Project Path="test/AStar.Dev.FunctionalParadigm.Tests.Unit/AStar.Dev.FunctionalParadigm.Tests.Unit.csproj" />
+  </Folder>
+</Solution>
